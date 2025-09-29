@@ -1,0 +1,34 @@
+repos:
+  # --------------------------
+  # Terraform / Terragrunt
+  # --------------------------
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.90.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_tflint
+      - id: terraform_checkov
+
+  # --------------------------
+  # YAML linting
+  # --------------------------
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+
+  # --------------------------
+  # Python (tests, scripts)
+  # --------------------------
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+        args: [--line-length=100]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix, --line-length=100]
