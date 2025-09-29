@@ -14,18 +14,18 @@ It demonstrates how to provision and manage infrastructure using **Terraform + T
 
 ```mermaid
 flowchart TD
-  TG_DEV[Terragrunt live/dev] --> VPC[Secure VPC + Subnets]
-  TG_PROD[Terragrunt live/prod] --> VPC
-  VPC --> EKS[EKS Cluster]
-  EKS --> KARP[Karpenter (Controller + Provisioners)]
-  KARP --> INGRESS[Ingress Controller]
-  INGRESS --> WORKLOADS[Workloads via ArgoCD (GitOps)]
+  TG_DEV["Terragrunt live/dev"] --> VPC["Secure VPC + Subnets"]
+  TG_PROD["Terragrunt live/prod"] --> VPC
+  VPC --> EKS["EKS Cluster"]
+  EKS --> KARP["Karpenter (Controller + Provisioners)"]
+  KARP --> INGRESS["Ingress Controller"]
+  INGRESS --> WORKLOADS["Workloads via ArgoCD (GitOps)"]
 
   subgraph Controls
-    CI[GitHub Actions + OIDC] -->|plan/apply| EKS
-    STATE[S3 + DynamoDB (TF state/locks)] --> TG_DEV
+    CI["GitHub Actions + OIDC"] -->|plan/apply| EKS
+    STATE["S3 + DynamoDB (TF state/locks)"] --> TG_DEV
     STATE --> TG_PROD
-    POL[Checkov • Conftest(OPA) • Trivy • TFLint] --> CI
-    OBS[Datadog APM/Logs + Prom/Grafana/Loki] --> EKS
+    POL["Checkov • Conftest(OPA) • Trivy • TFLint"] --> CI
+    OBS["Datadog APM/Logs + Prom/Grafana/Loki"] --> EKS
   end
 
