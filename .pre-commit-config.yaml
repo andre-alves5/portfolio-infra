@@ -1,7 +1,7 @@
 repos:
-  # --------------------------
-  # Terraform / Terragrunt
-  # --------------------------
+  # -------------------------
+  # Terraform hooks
+  # -------------------------
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.90.0
     hooks:
@@ -10,25 +10,35 @@ repos:
       - id: terraform_tflint
       - id: terraform_checkov
 
-  # --------------------------
-  # YAML linting
-  # --------------------------
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
-    hooks:
-      - id: yamllint
-
-  # --------------------------
-  # Python (tests, scripts)
-  # --------------------------
+  # -------------------------
+  # Python hooks
+  # -------------------------
   - repo: https://github.com/psf/black
-    rev: 24.8.0
+    rev: 24.4.2
     hooks:
       - id: black
-        args: [--line-length=100]
+        args: [--line-length=88]  # auto-format Python
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.9
     hooks:
       - id: ruff
-        args: [--fix, --line-length=100]
+        args: [--fix]             # auto-fix Python lint
+
+  # -------------------------
+  # YAML hooks
+  # -------------------------
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: [-d, "{extends: default, rules: {line-length: disable}}"]
+
+  # -------------------------
+  # General text checks
+  # -------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
